@@ -1,7 +1,6 @@
 import { Button } from "@/modules/shadcn/ui/button";
 import { usePypySongs } from "@/utils/hooks/usePypySongs";
 import { useRouter } from "next/router";
-import { env } from "@/env.mjs";
 import { Loading } from "@/modules/shareds/Loading";
 import { GithubIcon } from "lucide-react";
 import Link from "next/link";
@@ -95,7 +94,7 @@ export const Sidebar = () => {
         <div className="flex items-center">
           <h1 className="text-subtitle">Web Version</h1>
           <p className="ml-auto font-medium">
-            {env.NEXT_PUBLIC_COMMIT_SHA?.slice(0, 7) ?? "Development"}
+            {process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) ?? "Development"}
           </p>
         </div>
       </div>
