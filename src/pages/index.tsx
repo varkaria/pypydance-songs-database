@@ -1,10 +1,10 @@
 import { SongItem } from "@/modules/apps/SongItem";
 import { Layout } from "@/modules/shareds/Layout";
-import { api } from "@/utils/api";
+import { usePypySongs } from "@/utils/hooks/usePypySongs";
 import Head from "next/head";
 
 export default function Home() {
-  const { data } = api.songs.search.useQuery();
+  const { data } = usePypySongs();
 
   return (
     <>

@@ -1,3 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
+
 export type PypySongsRequestResponse = {
   updatedAt: number;
   songs: Song[];
@@ -28,4 +30,13 @@ export enum Group {
   GOLFYDANCEFITNESS = "6",
   SOUTHVIBES = "7",
   OTHERS = "9",
+}
+
+export const usePypySongs = () => {
+  const query = useQuery<PypySongsRequestResponse>({
+    queryKey: ['getPypySongs'],
+    queryFn: () => fetch('https://jd.pypy.moe/api/v1/songs').then(res => res.json())
+  })
+
+  return query
 }

@@ -1,4 +1,4 @@
-import { Group } from "@/server/api/modules/songs/types";
+import { Group } from "@/utils/hooks/usePypySongs";
 
 export const getSongMetadata = (metadata: string, group: Group) => {
   switch (group) {
