@@ -97,7 +97,8 @@ export const Sidebar = () => {
         <div className="flex items-center">
           <h1 className="text-subtitle">Web Version</h1>
           <p className="ml-auto font-medium">
-            {process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) ?? "Development"}
+            {publicRuntimeConfig.NEXT_PUBLIC_COMMIT_SHA?.slice(0, 7) ??
+              "Development"}
           </p>
         </div>
       </div>
