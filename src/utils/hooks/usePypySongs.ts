@@ -1,3 +1,4 @@
+import { songsMetadata } from "@/data/songs";
 import { useQuery } from "@tanstack/react-query";
 
 export type PypySongsRequestResponse = {
@@ -37,6 +38,21 @@ export const usePypySongs = () => {
     queryKey: ['getPypySongs'],
     queryFn: () => fetch('https://jd.pypy.moe/api/v1/songs').then(res => res.json())
   })
+
+  // data modification from community
+  if (query.data) {
+    const newData = songsMetadata
+    query.data.songs = query.data.songs.map(song => {
+      const matchedSong = newData.find(data => data.id === song.id)
+      if (matchedSong) {
+        return {
+          ...song,
+          ...matchedSong.data
+        }
+      }
+      return song
+    })
+  }
 
   return query
 }
