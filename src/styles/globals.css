@@ -46,3 +46,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.text-subtitle {
+  @apply opacity-70
+}
