@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { Loading } from "@/modules/shareds/Loading";
 import { GithubIcon } from "lucide-react";
 import Link from "next/link";
+import getConfig from "next/config";
 
 export const routes = [
   {
@@ -56,6 +57,7 @@ export const routes = [
 export const Sidebar = () => {
   const router = useRouter();
   const query = usePypySongs();
+  const { publicRuntimeConfig } = getConfig();
 
   return (
     <div className="sticky top-4 space-y-5">
@@ -64,17 +66,18 @@ export const Sidebar = () => {
       </div>
       <div className="space-y-2">
         {routes.map((route) => (
-          <Button
-            size="nav"
-            className="w-full"
-            key={route.href}
-            variant={router.pathname === route.href ? "default" : "secondary"}
-          >
-            <div className="flex w-full items-center justify-between text-base">
-              {route.icon}
-              <span>{route.label}</span>
-            </div>
-          </Button>
+          <Link href={route.href} key={route.href} className="block">
+            <Button
+              size="nav"
+              className="w-full"
+              variant={router.pathname === route.href ? "default" : "secondary"}
+            >
+              <div className="flex w-full items-center justify-between text-base">
+                {route.icon}
+                <span>{route.label}</span>
+              </div>
+            </Button>
+          </Link>
         ))}
       </div>
       <div className="space-y-2">
