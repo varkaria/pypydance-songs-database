@@ -43,10 +43,38 @@
     @apply border-border;
   }
   body {
+    font-family: 'Inter', sans-serif;
     @apply bg-background text-foreground;
   }
 }
 
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
 .text-subtitle {
   @apply opacity-70
+}
+
+main {
+  opacity: 0;
+  animation: fade-slide-in 1s cubic-bezier(0.18, 0.89, 0.24, 0.98) forwards;
+  animation-delay: 200ms;
+}
+
+nav {
+  opacity: 0;
+  animation: fade-slide-in 1s cubic-bezier(0.18, 0.89, 0.24, 0.98) forwards;
+  animation-delay: 100ms;
+}
+
+@keyframes fade-slide-in {
+  from {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
