@@ -26,7 +26,7 @@ export const SongItem = (song: Song) => {
     <div className="group relative space-y-2">
       <div className="relative w-full">
         {isError && (
-          <div className="w-ful flex aspect-video flex-col items-center justify-center gap-3 rounded-lg bg-zinc-200">
+          <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 rounded-lg bg-zinc-200 p-4">
             <div className="space-y-2 text-center">
               <h1 className="text-3xl">{": ("}</h1>
               <p className="text-subtitle text-sm">No Preview Avaliable.</p>
