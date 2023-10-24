@@ -16,6 +16,10 @@ export type Song = {
   end: number;
   skipRandom: boolean;
   originalUrl: string[];
+
+  // from our data
+  isOriginalDeleted?: boolean | undefined;
+  customThumbnail?: string | undefined;
 }
 
 export enum Group {

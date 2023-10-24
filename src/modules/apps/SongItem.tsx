@@ -5,6 +5,7 @@ import { cn } from "@/utils/cn";
 import { type Song } from "@/utils/hooks/usePypySongs";
 import { getSongMetadata } from "@/utils/song";
 import { getYTImage, getYTVideoId } from "@/utils/youtube";
+import { XCircle } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -13,13 +14,15 @@ export const SongItem = (song: Song) => {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    const img = new Image();
-    img.src = getYTImage(getYTVideoId(song.originalUrl[0] ?? ""));
-    img.onload = () => {
-      if (img.width < 140) {
-        setIsError(true);
-      }
-    };
+    if (!song.customThumbnail) {
+      const img = new Image();
+      img.src = getYTImage(getYTVideoId(song.originalUrl[0] ?? ""));
+      img.onload = () => {
+        if (img.width < 140) {
+          setIsError(true);
+        }
+      };
+    }
   }, [song]);
 
   return (
@@ -39,12 +42,25 @@ export const SongItem = (song: Song) => {
         {!isError && (
           <img
             className="aspect-video w-full rounded-lg object-cover"
-            src={getYTImage(getYTVideoId(song.originalUrl[0] ?? ""))}
+            src={
+              song.customThumbnail ??
+              getYTImage(getYTVideoId(song.originalUrl[0] ?? ""))
+            }
             alt={song.name}
           />
         )}
-        {!isError && (
+        {!isError && !song.isOriginalDeleted && (
           <div className="absolute left-0 top-0 h-full w-full rounded-lg transition-all group-hover:bg-primary/20" />
+        )}
+
+        {song.isOriginalDeleted && (
+          <div className="absolute bottom-0 flex w-full justify-end p-2.5">
+            <SongNotFoundDialog>
+              <Button variant="destructive" className="h-6 px-1.5">
+                <XCircle className="mr-1" size={16} /> Missing
+              </Button>
+            </SongNotFoundDialog>
+          </div>
         )}
       </div>
       <div className="flex items-center gap-2">
@@ -72,7 +88,7 @@ export const SongItem = (song: Song) => {
           </div>
         </SongHowToInputDialog>
       </div>
-      {!isError && (
+      {!isError && !song.isOriginalDeleted && (
         <Link
           className="absolute left-0 top-0 h-full w-full"
           href={song.originalUrl[0] ?? "#"}

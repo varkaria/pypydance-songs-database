@@ -15,7 +15,7 @@ export const SongNotFoundDialog = (props: { children: React.ReactNode }) => (
     <DialogTrigger asChild>{props.children}</DialogTrigger>
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>Why preview is not working?</DialogTitle>
+        <DialogTitle>What happen in this video?</DialogTitle>
         <DialogDescription>
           Due a DMCA takedown request, we are not allowed to show previews of
           the video that we are using. but you can still play the song by pick
