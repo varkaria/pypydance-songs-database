@@ -33,5 +33,10 @@ export const artists: string[] = [
   "Galantis x Ship Wrek x Pink Sweat$",
   "Ginuwine",
   "Anitta feat. Swae Lee",
-  "Jax Jones & Mabel"
+  "Jax Jones & Mabel",
+  "@TateMcRae & @tiesto",
+  "Megan Thee Stallion",
+  "@tiesto & @BlackEyedPeas",
+  "Nicki Minaj",
+  "@samsmith & Kim Petras"
 ]
