@@ -20,6 +20,8 @@ export const getSongMetadata = (metadata: string, group: Group) => {
         artist: metadata.split('[')[1]?.split(']')[0],
       };
     case Group.FITNESSMARSHALL:
+      // some songs is – instead of -
+      metadata = metadata.replace('–', '-')
       if (!metadata.includes(' - ')) return defaultReturn
 
       // because some songs have the artist name first
