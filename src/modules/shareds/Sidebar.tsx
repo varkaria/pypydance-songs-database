@@ -83,7 +83,7 @@ export const Sidebar = () => {
       <div className="space-y-2">
         <div className="flex items-center">
           <h1 className="text-subtitle">Database</h1>
-          <p className="ml-auto font-medium">
+          <div className="ml-auto font-medium">
             {query.data?.updatedAt ? (
               new Date(query.data?.updatedAt)
                 .toISOString()
@@ -92,14 +92,14 @@ export const Sidebar = () => {
             ) : (
               <Loading />
             )}
-          </p>
+          </div>
         </div>
         <div className="flex items-center">
           <h1 className="text-subtitle">Web Version</h1>
-          <p className="ml-auto font-medium">
+          <div className="ml-auto font-medium">
             {publicRuntimeConfig.NEXT_PUBLIC_COMMIT_SHA?.slice(0, 7) ??
               "Development"}
-          </p>
+          </div>
         </div>
       </div>
       <div className="flex items-center justify-center">
