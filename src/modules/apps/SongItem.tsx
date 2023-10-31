@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export const SongItem = (song: Song) => {
-  const metadata = getSongMetadata(song.name, song.group);
+  const metadata = song.metadata ?? getSongMetadata(song.name, song.group);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {

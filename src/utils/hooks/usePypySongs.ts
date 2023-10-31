@@ -1,4 +1,5 @@
 import { songsMetadata } from "@/data/songs";
+import { songsMissingThumbnail } from "@/data/thumbnails";
 import { useQuery } from "@tanstack/react-query";
 
 export type PypySongsRequestResponse = {
@@ -20,6 +21,10 @@ export type Song = {
   // from our data
   isOriginalDeleted?: boolean | undefined;
   customThumbnail?: string | undefined;
+  metadata?: {
+    title: string;
+    artist: string;
+  }
 }
 
 export enum Group {
@@ -45,16 +50,14 @@ export const usePypySongs = () => {
 
   // data modification from community
   if (query.data) {
-    const newData = songsMetadata
     query.data.songs = query.data.songs.map(song => {
-      const matchedSong = newData.find(data => data.id === song.id)
-      if (matchedSong) {
-        return {
-          ...song,
-          ...matchedSong.data
-        }
+      const matchedSong = songsMetadata.find(data => data.id === song.id)
+      const matchedMissingThumbnail = songsMissingThumbnail.find(data => data.id === song.id)
+      return {
+        ...song,
+        ...matchedSong?.data,
+        ...matchedMissingThumbnail?.data,
       }
-      return song
     })
   }
 
