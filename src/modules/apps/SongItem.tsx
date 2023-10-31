@@ -75,9 +75,14 @@ export const SongItem = (song: Song) => {
           </p>
           <h1
             className={cn([
-              "font-medium",
+              "relative z-10 font-medium hover:opacity-50",
               !metadata.artist ? "line-clamp-2" : "line-clamp-1",
             ])}
+            onClick={() => {
+              void navigator.clipboard.writeText(
+                `"${metadata.title}",` ?? "UNKNOWN",
+              );
+            }}
           >
             {metadata.title}
           </h1>
