@@ -5,6 +5,7 @@ import { Loading } from "@/modules/shareds/Loading";
 import { GithubIcon } from "lucide-react";
 import Link from "next/link";
 import getConfig from "next/config";
+import { VrchatIcon } from "@/modules/shareds/Icons";
 
 export const routes = [
   {
@@ -112,13 +113,20 @@ export const Sidebar = () => {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center gap-2">
         <Link
           className="text-primary transition-all hover:text-primary/60"
           href="https://github.com/Varkaria/pypydance-songs-database"
           target="_blank"
         >
           <GithubIcon />
+        </Link>
+        <Link
+          className="text-primary transition-all hover:text-primary/60"
+          href="https://vrchat.com/home/group/grp_ea95009d-149f-412a-975f-7baacff2efcd"
+          target="_blank"
+        >
+          <VrchatIcon />
         </Link>
       </div>
     </div>
