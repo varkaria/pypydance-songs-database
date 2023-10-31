@@ -89,4 +89,5 @@ export const artists: string[] = [
   "Justin Bieber",
   "Usher",
   "Aqua #DanceWithPride",
+  "DJ Snake feat. Lauv",
 ]
