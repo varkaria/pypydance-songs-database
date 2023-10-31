@@ -82,6 +82,16 @@ export const Sidebar = () => {
       </div>
       <div className="space-y-2">
         <div className="flex items-center">
+          <h1 className="text-subtitle">Total Songs</h1>
+          <div className="ml-auto font-medium">
+            {query.data?.updatedAt ? (
+              query.data?.songs.length.toLocaleString()
+            ) : (
+              <Loading />
+            )}
+          </div>
+        </div>
+        <div className="flex items-center">
           <h1 className="text-subtitle">Database</h1>
           <div className="ml-auto font-medium">
             {query.data?.updatedAt ? (
