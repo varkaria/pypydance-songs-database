@@ -1,5 +1,6 @@
 import { SongFilters } from "@/modules/apps/SongFilters";
 import { ItemsList } from "@/modules/apps/SongList";
+import { SongSorts } from "@/modules/apps/SongSorts";
 import { Input } from "@/modules/shadcn/ui/input";
 import { Layout } from "@/modules/shareds/Layout";
 import { cn } from "@/utils/cn";
@@ -30,6 +31,12 @@ export default function Home() {
   )?.filter((d) => {
     return groups?.length ? groups.includes(d.group) : true;
   });
+
+  const sortedResult =
+    result?.sort((a, b) => {
+      if (a.id > b.id) return -1;
+      return 0;
+    }) ?? [];
 
   const [isScrolling, setIsScrolling] = useState(false);
   useEffect(() => {
@@ -70,7 +77,7 @@ export default function Home() {
         </div>
         {result && (
           <ItemsList
-            songs={result}
+            songs={sortedResult}
             key={`
               ${search ?? ""}
               ${groups?.join(",") ?? ""}
