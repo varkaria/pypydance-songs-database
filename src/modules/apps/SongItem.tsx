@@ -26,8 +26,8 @@ export const SongItem = (song: Song) => {
   }, [song]);
 
   return (
-    <div className="group relative space-y-2">
-      <div className="relative w-full">
+    <div className="group relative w-full space-y-2">
+      <div className="relative aspect-video w-full">
         {isError && (
           <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 rounded-lg bg-zinc-200 p-4">
             <div className="space-y-2 text-center">
