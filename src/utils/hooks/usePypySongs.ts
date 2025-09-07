@@ -1,11 +1,32 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { songsMetadata } from "@/data/songs";
 import { songsMissingThumbnail } from "@/data/thumbnails";
 import { useQuery } from "@tanstack/react-query";
 
 export type PypySongsRequestResponse = {
-  updatedAt: number;
-  songs: Song[];
-}
+  timestamp: number;
+  // l10n: unknown[];
+  songs: {
+    /** id */
+    i: number;
+    /** group */
+    g: Group;
+    /** volume */
+    v?: number;
+    /** name */
+    n: string;
+    /** flip */
+    f?: true;
+    /** start */
+    s?: number;
+    /** end */
+    e?: number;
+    /** skipRandom */
+    x?: true;
+    /** originalUrl */
+    o?: string[];
+  }[];
+};
 
 export type Song = {
   id: number;
@@ -45,21 +66,33 @@ export enum Group {
 export const usePypySongs = () => {
   const query = useQuery<PypySongsRequestResponse>({
     queryKey: ['getPypySongs'],
-    queryFn: () => fetch('https://jd.pypy.moe/api/v1/songs').then(res => res.json())
-  })
+    queryFn: () => fetch('https://api.pypy.dance/bundle').then((res) => res.json()),
+    staleTime: 60000, // 60s
+  });
 
   // data modification from community
-  if (query.data) {
-    query.data.songs = query.data.songs.map(song => {
-      const matchedSong = songsMetadata.find(data => data.id === song.id)
-      const matchedMissingThumbnail = songsMissingThumbnail.find(data => data.id === song.id)
-      return {
-        ...song,
-        ...matchedSong?.data,
-        ...matchedMissingThumbnail?.data,
-      }
-    })
-  }
+  const songs = (query.data?.songs || []).map((song) => {
+    const matchedSong = songsMetadata.find((data) => data.id === song.i);
+    const matchedMissingThumbnail = songsMissingThumbnail.find(
+      (data) => data.id === song.i,
+    );
+    return {
+      id: song.i,
+      group: song.g,
+      volume: song.v || 0,
+      name: song.n,
+      flip: song.f || false,
+      start: song.s || 0,
+      end: song.e || 0,
+      skipRandom: song.x || false,
+      originalUrl: song.o || [],
+      ...matchedSong?.data,
+      ...matchedMissingThumbnail?.data,
+    };
+  });
 
-  return query
-}
+  return {
+    updatedAt: query.data?.timestamp || 0,
+    songs,
+  };
+};
