@@ -31,13 +31,13 @@ const InfiniteScrollElement = (props: {
 export const ItemsList = (props: { songs: Song[] }) => {
   const [page, setPage] = useState(1);
   const [songs, setSongs] = useState<Song[]>(
-    (props.songs ?? []).slice(0, page * itemsPerPage),
+    props.songs.slice(0, page * itemsPerPage),
   );
 
   useEffect(() => {
-    setSongs((props.songs ?? []).slice(0, page * itemsPerPage));
+    setSongs(props.songs.slice(0, page * itemsPerPage));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, [page, props.songs]);
 
   return (
     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">

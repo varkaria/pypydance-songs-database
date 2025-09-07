@@ -14,25 +14,25 @@ import {
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const { data } = usePypySongs();
+  const { songs } = usePypySongs();
   const [search, setSearch] = useQueryState("search");
   const [groups, setGroups] = useQueryState(
     "groups",
     parseAsArrayOf(parseAsString),
   );
 
-  const fuse = new Fuse(data?.songs ?? [], {
+  const fuse = new Fuse(songs, {
     keys: ["name"],
   });
 
   const result = (
-    search ? fuse.search(search).map((d) => d.item) : data?.songs
-  )?.filter((d) => {
+    search ? fuse.search(search).map((d) => d.item) : songs
+  ).filter((d) => {
     return groups?.length ? groups.includes(d.group) : true;
   });
 
   const sortedResult =
-    result?.sort((a, b) => {
+    result.sort((a, b) => {
       if (a.id > b.id) return -1;
       return 0;
     }) ?? [];

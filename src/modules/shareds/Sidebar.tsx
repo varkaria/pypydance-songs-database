@@ -57,7 +57,7 @@ export const routes = [
 
 export const Sidebar = () => {
   const router = useRouter();
-  const query = usePypySongs();
+  const { updatedAt, songs } = usePypySongs();
   const { publicRuntimeConfig } = getConfig();
 
   return (
@@ -85,21 +85,14 @@ export const Sidebar = () => {
         <div className="flex items-center">
           <h1 className="text-subtitle">Total Songs</h1>
           <div className="ml-auto font-medium">
-            {query.data?.updatedAt ? (
-              query.data?.songs.length.toLocaleString()
-            ) : (
-              <Loading />
-            )}
+            {updatedAt ? songs.length.toLocaleString() : <Loading />}
           </div>
         </div>
         <div className="flex items-center">
           <h1 className="text-subtitle">Database</h1>
           <div className="ml-auto font-medium">
-            {query.data?.updatedAt ? (
-              new Date(query.data?.updatedAt)
-                .toISOString()
-                .slice(0, 19)
-                .replace("T", " ")
+            {updatedAt ? (
+              new Date(updatedAt).toISOString().slice(0, 19).replace("T", " ")
             ) : (
               <Loading />
             )}

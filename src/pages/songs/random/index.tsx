@@ -30,14 +30,13 @@ export default function Home() {
     [],
   );
 
-  const { data } = usePypySongs();
+  const { songs } = usePypySongs();
 
   const randomise = () => {
     // due to the bug, we need to reset the state first
     setRandomisedSongs([]);
 
-    const songs = data?.songs ?? [];
-    const songsFiltered = songs?.filter((d) => {
+    const songsFiltered = songs.filter((d) => {
       return groups?.length ? groups.includes(d.group) : true;
     });
     const randomisedSongs = [];
